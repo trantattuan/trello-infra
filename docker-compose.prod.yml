@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  postgres:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  redis:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+
+  minio:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  api:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    environment:
+      NODE_ENV: production
+
+  web:
+    restart: always
+
+  nginx:
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
