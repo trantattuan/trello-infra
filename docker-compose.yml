@@ -68,6 +68,7 @@ services:
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
       NODE_ENV: ${NODE_ENV}
       FRONTEND_URL: ${FRONTEND_URL}
+      CRON_SECRET: ${CRON_SECRET}
     depends_on:
       postgres:
         condition: service_healthy
@@ -95,12 +96,8 @@ services:
     restart: unless-stopped
     environment:
       API_BASE: http://api:3001
-      CRON_EMAIL: ${CRON_EMAIL:-admin@gmail.com}
-      CRON_PASSWORD: ${CRON_PASSWORD:-123456}
-      TARGET_WORKSPACE: ${CRON_TARGET_WORKSPACE:-1}
-      TARGET_BOARD: ${CRON_TARGET_BOARD:-1}
-      TARGET_LIST: ${CRON_TARGET_LIST:-việc phải làm}
-      INTERVAL_MS: ${CRON_INTERVAL_MS:-180000}
+      CRON_SECRET: ${CRON_SECRET}
+      POLL_INTERVAL_MS: ${CRON_POLL_INTERVAL_MS:-60000}
     depends_on:
       - api
     networks:
