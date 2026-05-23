@@ -88,6 +88,24 @@ services:
     depends_on:
       - api
 
+  cron:
+    build:
+      context: ../cron
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      API_BASE: http://api:3001
+      CRON_EMAIL: ${CRON_EMAIL:-admin@gmail.com}
+      CRON_PASSWORD: ${CRON_PASSWORD:-123456}
+      TARGET_WORKSPACE: ${CRON_TARGET_WORKSPACE:-1}
+      TARGET_BOARD: ${CRON_TARGET_BOARD:-1}
+      TARGET_LIST: ${CRON_TARGET_LIST:-việc phải làm}
+      INTERVAL_MS: ${CRON_INTERVAL_MS:-180000}
+    depends_on:
+      - api
+    networks:
+      - trello-net
+
   nginx:
     image: nginx:alpine
     restart: unless-stopped
