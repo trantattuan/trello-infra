@@ -41,7 +41,7 @@ services:
     volumes:
       - minidata:/data
     ports:
-      - '9001:9001'
+      - '127.0.0.1:9001:9001'
     networks:
       - trello-net
     healthcheck:
